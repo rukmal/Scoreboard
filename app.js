@@ -25,7 +25,15 @@ app.use(express.session());
 app.use(app.router);
 
 app.get('/', function (req, res) {
+	res.render('index')
+});
+
+app.get('/board', function (req, res) {
 	res.render('board');
+});
+
+app.get('/remote', function (req, res) {
+	res.render('remote');
 });
 
 io.on('connection', function (socket) {

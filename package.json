@@ -1,7 +1,7 @@
 {
-  "name": "scoreboard",
+  "name": "Scoreboard",
   "version": "1.0.0",
-  "description": "A simple scoreboard application",
+  "description": "A simple basketball scoreboard application",
   "main": "app.js",
   "author": "Rukmal Weerawarana",
   "author_website": "http://rukmal.me",
