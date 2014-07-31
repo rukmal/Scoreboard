@@ -1,12 +1,22 @@
 html
 	head
+		meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
 		link(rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
-		link(href='http://fonts.googleapis.com/css?family=Ubuntu+Mono|Pacifico' rel='stylesheet')
+		link(href='http://fonts.googleapis.com/css?family=Ubuntu+Mono|Pacifico|Montserrat' rel='stylesheet')
 		link(rel="stylesheet" href="css/index.css")
+		title Scoreboard
 	body
 		// Fork me on GitHub code
 		a(href="https://github.com/you"): img(style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/52760788cde945287fbb584134c4cbc2bc36f904/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f77686974655f6666666666662e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png")
 		.container.text-center
-			p#titles: span#maintitlewelcome Welcome to
+			p#titles
+				span#maintitlewelcome Welcome to
 				br
 				span#maintitle Scoreboard
+		.container#buttonoptions
+			.button.col-centered.text-center: a(href="board") Board
+			br
+			br
+			.button.col-centered.text-center: a(href="remote") Remote
+		.container.text-center
+			<p class="footer">Open Source project by <a href='http://rukmal.me'>Rukmal Weerawarana</a> (<a href="http://twitter.com/rukmal_w">@rukmal_w</a>).</p>
