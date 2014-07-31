@@ -24,6 +24,12 @@ app.use(express.cookieParser('your secret here'));
 app.use(express.session());
 app.use(app.router);
 
-io.on('connection', function (socket) {
+app.get('/', function (req, res) {
+	res.render('board');
+});
 
+io.on('connection', function (socket) {
+	socket.on('test', function (data) {
+		console.log(data);
+	});
 });
