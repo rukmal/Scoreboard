@@ -47,8 +47,17 @@ app.get('/board', function (req, res) {
 	res.render('board');
 });
 
+app.post('/remoteauth', function (req, res) {
+	var candidatePassword = req.body.password;
+	if (candidatePassword === board_cfg.password) {
+		res.render('remote');
+	} else {
+		res.render('remoteauthfailed');
+	}
+});
+
 app.get('/remote', function (req, res) {
-	res.render('remote');
+	res.render('remoteauth');
 });
 
 

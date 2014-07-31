@@ -1,0 +1,29 @@
+html, body {
+	height: 100%;
+	width: 100%;
+	background-color: black;
+}
+
+.message {
+	font-family: 'Montserrat', sans-serif;
+	font-size: 2em;
+	color: rgb(220,220,220);
+	height: 4em;
+}
+
+a {
+	color: rgb(150,150,150);
+	transition: color 0.5s;
+	text-decoration: none;
+}
+
+a:hover {
+	color: rgb(220,220,220);
+	text-decoration: none;
+}
+
+.vertical-center {
+	margin: auto;
+	position: absolute;
+	top: 0; left: 0; bottom: 0; right: 0;
+}

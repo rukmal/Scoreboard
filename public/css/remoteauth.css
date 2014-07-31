@@ -1,0 +1,21 @@
+html, body {
+	height: 100%;
+	width: 100%;
+	background-color: black;
+}
+
+#prompt {
+	font-family: 'Montserrat', sans-serif;
+	font-size: 2em;
+	color: rgb(220,220,220);
+}
+
+.form {
+	height: 2em;
+}
+
+.vertical-center {
+	margin: auto;
+	position: absolute;
+	top: 0; left: 0; bottom: 0; right: 0;
+}
