@@ -69,6 +69,9 @@ app.post('/auth', function (req, res) {
 	}
 });
 
+app.get('*', function (req, res) {
+	res.render('404');
+});
 
 // require('./game.js')(board_cfg);
 

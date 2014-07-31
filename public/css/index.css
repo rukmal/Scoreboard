@@ -31,11 +31,14 @@ html, body {
 
 .button {
 	font-family: 'Montserrat', sans-serif;
-	color: rgb(195,195,195);
 	border: 2px solid rgb(220,220,220);
 	border-radius: 5px;
 	height: 3em;
 	width: 12em;
+}
+
+.btncontainer {
+	margin-top: 0.6em;
 }
 
 .col-centered {
@@ -59,4 +62,13 @@ a {
 a:hover {
 	text-decoration: none;
 	color: rgb(195,195,195);
+}
+
+a > div {
+	color: rgb(120,120,120);
+	transition: color 1s;
+}
+
+a > div:hover {
+	color: rgb(220,220,220);
 }
