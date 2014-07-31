@@ -1,10 +1,11 @@
 {
+	"_comment": "All times must be in milliseconds",
 	"team_home": "CloudBots",
 	"team_home_logo": "",
 	"team_away": "Legions",
 	"team_away_logo": "",
 	"password": "test",
-	"half_length": "",
+	"half_length": "10000",
 	"timeout_length": "",
 	"halftime_length": ""
 }

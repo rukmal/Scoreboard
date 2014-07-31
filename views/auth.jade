@@ -3,17 +3,18 @@ html
 		meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
 		link(rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
 		link(href='http://fonts.googleapis.com/css?family=Ubuntu+Mono|Pacifico|Montserrat' rel='stylesheet')
-		link(rel="stylesheet" href="css/remoteauth.css")
-		title Scoreboard - Remote Authentication
+		link(rel="stylesheet" href="css/auth.css")
+		title Scoreboard Authentication
 	body
 		.container
 			.form.text-center.vertical-center
-				h1#prompt Enter password for the scoreboard remote below
+				h1#prompt Enter password for the #{item} below
 				br
 				.col-md-4
 				.col-md-4
-					form(action="remoteauth" method="post")
+					form(action="auth" method="post")
 						input(name="password" type="password" placeholder="enter password here").form-control#password
 						br
+						input(type="hidden" name="item" value="#{item}")
 						input(type="submit" value="Submit").btn.btn-default
 				.col-md-4

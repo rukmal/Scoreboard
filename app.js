@@ -44,26 +44,35 @@ app.get('/', function (req, res) {
 });
 
 app.get('/board', function (req, res) {
-	res.render('board');
-});
-
-app.post('/remoteauth', function (req, res) {
-	var candidatePassword = req.body.password;
-	if (candidatePassword === board_cfg.password) {
-		res.render('remote');
-	} else {
-		res.render('remoteauthfailed');
-	}
+	res.render('auth', {
+		item: 'board'
+	});
 });
 
 app.get('/remote', function (req, res) {
-	res.render('remoteauth');
+	res.render('auth', {
+		item: 'remote'
+	});
+});
+
+app.post('/auth', function (req, res) {
+	var candidatePassword = req.body.password;
+	var item = req.body.item;
+	if (candidatePassword === board_cfg.password) {
+		if (item === 'board') {
+			res.render('board');
+		} else if (item === 'remote') {
+			res.render('remote');
+		}
+	} else {
+		res.render('authfailed');
+	}
 });
 
 
-// 
+// require('./game.js')(board_cfg);
+
+// Socket.io stuff
 io.on('connection', function (socket) {
-	socket.on('test', function (data) {
-		console.log(data);
-	});
+	require('./game.js')(board_cfg, socket);
 });
