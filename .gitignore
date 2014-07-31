@@ -1,0 +1,5 @@
+# Ignoring sytem files
+.DS_Store
+
+# Ignoring node modules
+node_modules
