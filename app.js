@@ -73,9 +73,13 @@ app.get('*', function (req, res) {
 	res.render('404');
 });
 
-// require('./game.js')(board_cfg);
+function writeToLog (message) {
+	fs.appendFile('scoreboard.log', '[' + new Date().toString() + '] ' + message + '\n', function (err) {
+		if (err) {
+			console.log('Fatal: Log not opened.');
+		}
+	});
+}
 
-// Socket.io stuff
-io.on('connection', function (socket) {
-	require('./game.js')(board_cfg, socket);
-});
+// Requiring and starting the game module
+require('./game.js')(board_cfg, io, writeToLog);

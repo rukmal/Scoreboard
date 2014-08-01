@@ -3,3 +3,6 @@
 
 # Ignoring node modules
 node_modules
+
+# Ignroing application log
+scoreboard.log

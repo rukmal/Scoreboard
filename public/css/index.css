@@ -21,7 +21,7 @@ html, body {
 }
 
 #maintitle {
-	font-family: 'Pacifico', cursive;
+	font-family: 'Marvel', 'Pacifico', cursive;
 	font-size: 4.5em;
 }
 
@@ -31,7 +31,8 @@ html, body {
 
 .button {
 	font-family: 'Montserrat', sans-serif;
-	border: 2px solid rgb(220,220,220);
+	border: 2px solid rgb(120,120,120);
+	transition: border 0.5s;
 	border-radius: 5px;
 	height: 3em;
 	width: 12em;
@@ -71,4 +72,8 @@ a > div {
 
 a > div:hover {
 	color: rgb(220,220,220);
+}
+
+.button:hover {
+	border: 2px solid rgb(220,220,220);
 }
