@@ -1,16 +1,14 @@
 function Game (board_cfg, io, writeToLog) {
-	var GAME = {
-		current_time: 0,
-		start_time: 0,
-		half_number: 0,
-		team_home: 0,
-		team_away: 0
-	}
+	var GAME = board_cfg;
+	GAME.current_time = board_cfg.half_length;
 
 	io.on('connection', function (socket) {
+		// socket to get type of connection
 		socket.on('type', function (type) {
 			writeToLog('Connection of type ' + type + ' initiated');
 		});
+
+		// socket to send initial game state
 		socket.emit('initial game state', GAME);
 
 		// socket to recieve updated time from the board
@@ -43,6 +41,7 @@ function Game (board_cfg, io, writeToLog) {
 		function pauseBoard () {
 			io.sockets.emit('pause board', '');
 			writeToLog('Board timer stopped');
+			updateTimeStatus('pause');
 		}
 
 		/**
@@ -51,6 +50,7 @@ function Game (board_cfg, io, writeToLog) {
 		function startBoard () {
 			io.sockets.emit('start board', '');
 			writeToLog('Board timer started');
+			updateTimeStatus('start');
 		}
 
 		/**
@@ -62,6 +62,15 @@ function Game (board_cfg, io, writeToLog) {
 			score[team_away] = GAME.team_away;
 			io.sockets.emit('update scores', score);
 			writeToLog('New scores sent to board');
+		}
+
+		/**
+		 * Function to update the time status of the clock
+		 * @param  {String} status Either 'start' or 'pause'
+		 */
+		function updateTimeStatus (status) {
+			io.sockets.emit('current time status', status);
+			writeToLog('Time status changed to ' + status);
 		}
 	});
 }

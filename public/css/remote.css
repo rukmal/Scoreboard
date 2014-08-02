@@ -1,0 +1,19 @@
+html, body {
+	height: 100%;
+	background-color: black;
+}
+
+.timerbutton {
+	height: 10em;
+	width: 90%;
+}
+
+#start {
+	background-color: green;
+	/*margin-left: 0.5em;*/
+}
+
+#stop {
+	background-color: red;
+	/*margin-right: 0.5em;*/
+}

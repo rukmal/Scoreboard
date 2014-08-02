@@ -12,3 +12,22 @@ $('#start').click(function () {
 $('#stop').click(function () {
 	socket.emit('pause time', '');
 });
+
+// Socket to recieve current time status from the server
+socket.on('current time status', function (status) {
+	updatePageTimeStatus(status);
+});
+
+socket.on('initial game state', function (state) {
+	updatePageTimeStatus(state.time_status);
+});
+
+function updatePageTimeStatus (status) {
+	var status;
+	if (status === 'start') {
+		status = 'Clock Running';
+	} else {
+		status = 'Clock Stopped';
+	}
+	$('#timerstatus').text(status);
+}
