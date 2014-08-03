@@ -68,7 +68,7 @@ function updateClock () {
 	var printTime;
 	currentTempTime = CURRENT_TIME / 100;
 	if (currentTempTime >= TIME_CUTOFF) {
-		printTime = currentTempTime % 10 + ':' + currentTempTime;
+		printTime = int(currentTempTime % 100) + ':' + currentTempTime;
 	} else {
 		printTime = currentTempTime % 600 + ':' + currentTempTime % 10;
 	}
