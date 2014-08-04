@@ -2,9 +2,17 @@ html
 	head
 		title Scoreboard
 		link(rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
+		link(rel="stylesheet" href="http://fonts.googleapis.com/css?family=Syncopate|Source+Code+Pro' rel='stylesheet")
 		link(rel="stylesheet" href="css/board.css")
 	body
-
+		.container.text-center
+			img#tournamentlogo.img.img-responsive
+			h3#tournamenttitle
+		.container
+			.scores.text-center
+				.col-md-4#teamhome
+				.col-md-4
+				.col-md-4#teamaway
 		.container.text-center
 			h1#mainclock
 		audio#buzzer(src="sound/buzzer.mp3" preload="auto")

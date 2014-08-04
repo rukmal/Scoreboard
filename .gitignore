@@ -6,3 +6,6 @@ node_modules
 
 # Ignroing application log
 scoreboard.log
+
+# Ignoring todo file
+TODO.md

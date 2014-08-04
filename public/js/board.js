@@ -4,6 +4,7 @@
 
 var TIME_CUTOFF = 59999; // ms (59.99 seconds)
 var TIME_INTERVAL = 100; // ms (time refresh rate)
+var INITIAL_CONFIG = true;
 
 
 //==================
@@ -26,7 +27,16 @@ socket.emit('type', 'board');
 socket.on('initial game state', function (initialState) {
 	initialConfig = initialState;
 	if (CURRENT_TIME === undefined) {
-		CURRENT_TIME = initialConfig.current_time;
+		CURRENT_TIME = initialConfig.half_length;
+	}
+	if (INITIAL_CONFIG) {
+		$('#tournamentlogo').attr('src', initialConfig.tournament_logo);
+		$('#tournamenttitle').text(initialConfig.tournament_title);
+		var homehtml = '<h4>' + initialConfig.team_home + '</h4><div id="' + initialConfig.team_home + 'score"></div>';
+		var awayhtml = '<h4>' + initialConfig.team_away + '</h4><div id="' + initialConfig.team_away + 'score"></div>';
+		$('#teamhome').append(homehtml);
+		$('#teamaway').append(awayhtml);
+		INITIAL_CONFIG = false;
 	}
 	updateClock();
 });
@@ -43,6 +53,7 @@ socket.on('start board', function () {
 
 // Socket to reset the clock
 socket.on('reset clock signal', function () {
+	stopClock();
 	CURRENT_TIME = initialConfig.half_length;
 	$('#mainclock').css('color', 'white');
 	updateClock();
@@ -90,8 +101,13 @@ function stopClock () {
  * @return {Array}    Formatted time as [h, m, s, ms]
  */
 function msToTime(s) {
-	function addZ(n) {
-		return (n<10? '0':'') + n;
+	/**
+	 * Internal function to append 0's to
+	 * numbers < 10 to make them look pretty
+	 * @param {Number} n Number which is to be prettified
+	 */
+	function addZ (n) {
+		return (n < 10? '0' : '') + n;
 	}
 	var ms = s % 1000;
 	s = (s - ms) / 1000;
