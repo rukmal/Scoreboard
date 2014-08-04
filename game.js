@@ -35,6 +35,11 @@ function Game (board_cfg, io, writeToLog) {
 			startBoard();
 		});
 
+		// Socket to receive updated board status to be sent to the remote
+		socket.on('update remote status', function (status) {
+			updateTimeStatus(status);
+		});
+
 		/**
 		 * Function to pause timer on the board
 		 */

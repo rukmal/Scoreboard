@@ -2,8 +2,8 @@
 // Constants
 //==================
 
-var TIME_CUTOFF = 599900; // ms (59.99 seconds)
-var TIME_INTERVAL = 10; // ms
+var TIME_CUTOFF = 59999; // ms (59.99 seconds)
+var TIME_INTERVAL = 100; // ms (time refresh rate)
 
 
 //==================
@@ -27,6 +27,7 @@ socket.emit('type', 'board');
 socket.on('initial game state', function (initialState) {
 	initialConfig = initialState;
 	CURRENT_TIME = initialConfig.current_time;
+	updateClock();
 });
 
 // Socket to recieve pause signal from server
@@ -49,6 +50,7 @@ var prevCycleTime = new Date().getTime();
 var clockInterval;
 
 function startClock () {
+	initialTime = new Date().getTime()
 	var prevCycleTime = new Date().getTime();
 	clockInterval = setInterval(function () {
 		var currentTime = new Date().getTime();
@@ -64,14 +66,34 @@ function stopClock () {
 	clearInterval(clockInterval);
 }
 
+function msToTime(s) {
+	function addZ(n) {
+		return (n<10? '0':'') + n;
+	}
+	var ms = s % 1000;
+	s = (s - ms) / 1000;
+	var secs = s % 60;
+	s = (s - secs) / 60;
+	var mins = s % 60;
+	var hrs = (s - mins) / 60;
+	return [addZ(hrs), mins, addZ(secs), addZ(ms)];
+}
+
 function updateClock () {
 	var printTime;
-	currentTempTime = CURRENT_TIME / 100;
-	if (currentTempTime >= TIME_CUTOFF) {
-		printTime = int(currentTempTime % 100) + ':' + currentTempTime;
-	} else {
-		printTime = currentTempTime % 600 + ':' + currentTempTime % 10;
+	if (CURRENT_TIME === 0) {
+		stopClock();
+		socket.emit('update remote status', 'pause');
 	}
-	console.log(currentTempTime + '   ' + printTime);
+	var formattedTime = msToTime(CURRENT_TIME);
+	if (CURRENT_TIME >= TIME_CUTOFF) {
+		// Greater than TIME_CUTOFF
+		printTime = formattedTime[1] + ':' + formattedTime[2];
+	} else {
+		// Less than TIME_CUTOFF
+		var ms = formattedTime[3];
+		ms = ms / 100;
+		printTime = formattedTime[2] + '.' + ms;
+	}
 	$('#testtimer').text(printTime);
 }
