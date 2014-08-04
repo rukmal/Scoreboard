@@ -5,7 +5,7 @@
 	"team_home": "CloudBots",
 	"team_away": "Legions",
 	"password": "test",
-	"half_length": 10000,
+	"half_length": 600000,
 	"timeout_length": "",
 	"halftime_length": "",
 	"shot_clock_length": 24000

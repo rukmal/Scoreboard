@@ -162,7 +162,7 @@ function updateClock () {
 function updateShotClock () {
 	var printShotClockTime = '';
 	if (CURRENT_SHOT_CLOCK_TIME === 0) {
-		// document.getElementById('shotclockbuzzer').play();
+		document.getElementById('buzzer').play();
 		stopClock();
 	}
 	if (CURRENT_SHOT_CLOCK_TIME < SHOT_CLOCK_TIME_CUTOFF) {
