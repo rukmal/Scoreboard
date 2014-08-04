@@ -4,7 +4,7 @@
 
 var TIME_CUTOFF = 59999; // ms (59.99 seconds)
 var TIME_INTERVAL = 100; // ms (time refresh rate)
-var INITIAL_CONFIG = true;
+var FIRST_CONFIG = true;
 
 
 //==================
@@ -29,14 +29,17 @@ socket.on('initial game state', function (initialState) {
 	if (CURRENT_TIME === undefined) {
 		CURRENT_TIME = initialConfig.half_length;
 	}
-	if (INITIAL_CONFIG) {
+	if (FIRST_CONFIG) {
 		$('#tournamentlogo').attr('src', initialConfig.tournament_logo);
 		$('#tournamenttitle').text(initialConfig.tournament_title);
-		var homehtml = '<h4>' + initialConfig.team_home + '</h4><div id="' + initialConfig.team_home + 'score"></div>';
-		var awayhtml = '<h4>' + initialConfig.team_away + '</h4><div id="' + initialConfig.team_away + 'score"></div>';
+		var homehtml = '<h4 class="teamlabel">' + initialConfig.team_home + '</h4><h2 class="scorenumber" id="' + initialConfig.team_home + 'score"></h2>';
+		var awayhtml = '<h4 class="teamlabel">' + initialConfig.team_away + '</h4><h2 class="scorenumber" id="' + initialConfig.team_away + 'score"></h2>';
 		$('#teamhome').append(homehtml);
 		$('#teamaway').append(awayhtml);
-		INITIAL_CONFIG = false;
+		setScore(initialConfig.team_home, initialConfig.team_home_score);
+		setScore(initialConfig.team_away, initialConfig.team_away_score);
+		console.log(setScore);
+		FIRST_CONFIG = false;
 	}
 	updateClock();
 });
@@ -140,4 +143,18 @@ function updateClock () {
 		printTime = formattedTime[2] + '.' + ms;
 	}
 	$('#mainclock').text(printTime);
+}
+
+
+//=====================
+// Score stuff
+//=====================
+
+/**
+ * Function to set the score of a team
+ * @param {String} team  Name of the team
+ * @param {Number} score Score of the team
+ */
+function setScore (team, score) {
+	$('#' + team + 'score').text(score);
 }

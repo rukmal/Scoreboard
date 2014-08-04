@@ -1,5 +1,7 @@
 function Game (board_cfg, io, writeToLog) {
 	var GAME = board_cfg;
+	GAME.team_home_score = 0;
+	GAME.team_away_score = 0;
 
 	io.on('connection', function (socket) {
 		// socket to get type of connection
