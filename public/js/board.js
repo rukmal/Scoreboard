@@ -6,7 +6,7 @@ var TIME_CUTOFF = 59999; // ms (59.99 seconds)
 var TIME_INTERVAL = 100; // ms (time refresh rate)
 var SHOT_CLOCK_TIME_CUTOFF = 5000 // ms (warning range)
 var FIRST_CONFIG = true;
-
+var ISTIMEOUT = false;
 
 //==================
 // Game variables
@@ -70,6 +70,10 @@ socket.on('reset clock signal', function () {
 socket.on('reset shot clock signal', function () {
 	resetShotClock();
 	startShotClock();
+});
+
+socket.on('start timeout signal', function () {
+	startTimeout();
 });
 
 
@@ -156,25 +160,6 @@ function updateClock () {
 	$('#mainclock').text(printTime);
 }
 
-/**
- * Function to update the shot clock on the board
- */
-function updateShotClock () {
-	var printShotClockTime = '';
-	if (CURRENT_SHOT_CLOCK_TIME === 0) {
-		document.getElementById('buzzer').play();
-		stopClock();
-	}
-	if (CURRENT_SHOT_CLOCK_TIME < SHOT_CLOCK_TIME_CUTOFF) {
-		$('#shotclocktimer').css('color', 'red');
-	}
-	formattedShotClockTime = msToTime(CURRENT_SHOT_CLOCK_TIME);
-	var ms = formattedShotClockTime[3];
-	ms = ms / 100;
-	printShotClockTime = parseInt(formattedShotClockTime[2]) + '.' + ms;
-	$('#shotclocktimer').text(printShotClockTime);
-}
-
 
 //=====================
 // Shot Clock stuff
@@ -203,10 +188,56 @@ function startShotClock () {
  * Function to reset the shot clock
  */
 function resetShotClock () {
+	if (ISTIMEOUT) {
+		$('#shotclock').text('Shot Clock');
+		ISTIMEOUT = false;
+	}
 	clearInterval(shotClock);
 	CURRENT_SHOT_CLOCK_TIME = initialConfig.shot_clock_length;
 	$('#shotclocktimer').css('color', 'white');
 	updateShotClock();
+}
+
+/**
+ * Function to update the shot clock on the board
+ */
+function updateShotClock () {
+	var printShotClockTime = '';
+	if (CURRENT_SHOT_CLOCK_TIME === 0) {
+		document.getElementById('buzzer').play();
+		stopClock();
+	}
+	if (CURRENT_SHOT_CLOCK_TIME < SHOT_CLOCK_TIME_CUTOFF) {
+		$('#shotclocktimer').css('color', 'red');
+	}
+	var formattedShotClockTime = msToTime(CURRENT_SHOT_CLOCK_TIME);
+	if (CURRENT_SHOT_CLOCK_TIME >= TIME_CUTOFF) {
+		// Greater than TIME_CUTOFF
+		printShotClockTime = formattedShotClockTime[1] + ':' + formattedShotClockTime[2];
+	} else {
+		// Less than TIME_CUTOFF
+		var ms = formattedShotClockTime[3];
+		ms = ms / 100;
+		printShotClockTime = parseInt(formattedShotClockTime[2]) + '.' + ms;
+	}
+	$('#shotclocktimer').text(printShotClockTime);
+}
+
+
+//=====================
+// Timeout stuff
+//=====================
+
+/**
+ * Function to start a timeout
+ */
+function startTimeout () {
+	clearInterval(clockInterval);
+	ISTIMEOUT = true;
+	CURRENT_SHOT_CLOCK_TIME = initialConfig.timeout_length;
+	$('#shotclock').text('Timeout')
+	updateShotClock();
+	startShotClock();
 }
 
 

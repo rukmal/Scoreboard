@@ -54,6 +54,12 @@ function Game (board_cfg, io, writeToLog) {
 			io.emit('reset shot clock signal', '');
 		});
 
+		// socket to receive signal to start a timeout from the remote
+		socket.on('start timeout', function () {
+			writeToLog('Signal to start a timeout received and sent to board');
+			io.emit('start timeout signal', '');
+		});
+
 		/**
 		 * Function to pause timer on the board
 		 */

@@ -1,12 +1,12 @@
 {
 	"_comment": "All times must be in milliseconds",
 	"tournament_logo": "http://digit.lk/wp-content/uploads/2013/07/wso2.jpg",
-	"tournament_title": "Interhouse Tournament",
+	"tournament_title": "Interhouse Basketball",
 	"team_home": "CloudBots",
-	"team_away": "Legions",
+	"team_away": "Legion",
 	"password": "test",
-	"half_length": 600000,
-	"timeout_length": "",
+	"half_length": 24200,
+	"timeout_length": 120000,
 	"halftime_length": "",
 	"shot_clock_length": 24000
 }

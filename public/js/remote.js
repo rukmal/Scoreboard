@@ -23,6 +23,11 @@ $('#shotclock').click(function () {
 	socket.emit('reset shot clock', '');
 });
 
+// Button handler to send signal to server to start a timeout
+$('#timeout').click(function () {
+	socket.emit('start timeout', '');
+});
+
 // Socket to recieve current time status from the server
 socket.on('current time status', function (status) {
 	updatePageTimeStatus(status);

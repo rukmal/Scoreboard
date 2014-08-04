@@ -15,10 +15,13 @@ html
 		.text-center
 			p#timerstatus
 		.text-center
-			button#shotclock.btn.btn-success Reset Shot Clock
+			button#shotclock.btn.btn-success.game-button Reset Shot Clock
 		br
 		.text-center
-			button.btn.btn-default(data-toggle="modal" data-target="#clearClockConfirm") Reset Clock
+			button#timeout.btn.btn-primary.game-button Start Timeout
+		br
+		.text-center
+			button.btn.btn-danger(data-toggle="modal" data-target="#clearClockConfirm") Reset Clock
 		// Popup to confirm clearing the clock
 		#clearClockConfirm.modal.fade(role='dialog' aria-hidden='false')
 			.modal-dialog

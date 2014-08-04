@@ -28,6 +28,6 @@ html, body {
 	font-family: 'Hammersmith One', sans-serif;
 }
 
-#shotclock {
+.game-button {
 	height: 5em;
 }
