@@ -72,8 +72,14 @@ socket.on('reset shot clock signal', function () {
 	resetShotClock();
 });
 
+// socket to start a timeout
 socket.on('start timeout signal', function () {
 	startTimeout();
+});
+
+// socket to update the score
+socket.on('update score signal', function (newScoreInfo) {
+	setScore(newScoreInfo.team, newScoreInfo.score);
 });
 
 
@@ -202,6 +208,9 @@ function resetShotClock () {
 	}
 }
 
+/**
+ * Function to stop the shot clock and reset the timer
+ */
 function stopShotClock () {
 	clearInterval(shotClock);
 	CURRENT_SHOT_CLOCK_TIME = initialConfig.shot_clock_length;

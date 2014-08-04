@@ -17,11 +17,19 @@ html
 		.text-center
 			button#shotclock.btn.btn-success.game-button Reset Shot Clock
 		br
-		.text-center
+		.text-center#scores
 			.col-xs-6
-				h3#teamhometitle
-			.col-xs-6
-				h3#teamawaytitle
+				h3#teamhometitle.teamtitle
+				.btn-group-vertical
+					.scorebutton.btn#teamhomeplus: span.glyphicon.glyphicon-plus
+					input.form-control.text-center#teamhomescore(type="number")
+					.scorebutton.btn#teamhomeminus: span.glyphicon.glyphicon-minus
+			.col-xs-6#teamaway
+				h3#teamawaytitle.teamtitle
+				.btn-group-vertical
+					.scorebutton.btn#teamawayplus: span.glyphicon.glyphicon-plus
+					input.form-control.text-center#teamawayscore(type="number")
+					.scorebutton.btn#teamawayminus: span.glyphicon.glyphicon-minus
 		br
 		.text-center
 			button#timeout.btn.btn-primary.game-button Start Timeout

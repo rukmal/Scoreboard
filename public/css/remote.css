@@ -13,6 +13,11 @@ html, body {
 	font-family: 'Marvel', sans-serif;
 }
 
+.teamtitle {
+	font-family: 'Marvel', sans-serif;
+	color: white;
+}
+
 #start {
 	background-color: green;
 }
@@ -28,6 +33,15 @@ html, body {
 	font-family: 'Hammersmith One', sans-serif;
 }
 
+#timeout {
+	margin-top: 4em;
+}
+
 .game-button {
 	height: 5em;
+}
+
+.scorebutton {
+	background-color: white;
+	height: 4.5em;
 }

@@ -18,15 +18,6 @@ function Game (board_cfg, io, writeToLog) {
 			GAME.current_time = newTime;
 		});
 
-		// socket to recieve updated score from the remote
-		socket.on('update score', function (newScoreData) {
-			var team = newScoreData.team;
-			var score = newScoreData.score;
-			GAME[team] = score;
-			writeToLog('New score ' + score + ' recorded for ' + team);
-			updateBoardScore();
-		});
-
 		// socket to recieve 'pause' signal from the remote
 		socket.on('pause time', function () {
 			pauseBoard();
@@ -60,6 +51,17 @@ function Game (board_cfg, io, writeToLog) {
 			io.emit('start timeout signal', '');
 		});
 
+		// socket to receive signal to change score from the remote
+		socket.on('update score', function (newScoreInfo) {
+			if (newScoreInfo.team === GAME.team_home) {
+				GAME.team_home_score = newScoreInfo.score;
+			} else {
+				GAME.team_away_score = newScoreInfo.score;
+			}
+			writeToLog(newScoreInfo.team + '\'s score updated to ' + newScoreInfo.score);
+			io.emit('update score signal', newScoreInfo);
+		});
+
 		/**
 		 * Function to pause timer on the board
 		 */
@@ -76,26 +78,6 @@ function Game (board_cfg, io, writeToLog) {
 			io.emit('start board', '');
 			writeToLog('Board timer started');
 			updateTimeStatus('start');
-		}
-
-		/**
-		 * Function to update the score on the board
-		 */
-		function updateBoardScore () {
-			var score = {};
-			score[team_home] = GAME.team_home;
-			score[team_away] = GAME.team_away;
-			io.emit('update scores', score);
-			writeToLog('New scores sent to board');
-		}
-
-		/**
-		 * Function to update the time status of the clock
-		 * @param  {String} status Either 'start' or 'pause'
-		 */
-		function updateTimeStatus (status) {
-			io.emit('current time status', status);
-			writeToLog('Time status changed to ' + status);
 		}
 	});
 }
