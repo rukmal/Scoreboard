@@ -2,10 +2,11 @@ html
 	head
 		meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
 		link(rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
+		link(rel="stylesheet" href="http://fonts.googleapis.com/css?family=Hammersmith+One|Marvel")
 		link(rel="stylesheet" href="css/remote.css")
 		title Scoreboard Remote
 	body
-		h1 Remote
+		h1#maintitle.text-center Remote
 		.container.text-center
 			.col-xs-6
 				button#start.btn.btn-lg.btn-success.timerbutton Start
@@ -13,6 +14,20 @@ html
 				button#stop.btn.btn-lg.btn-danger.timerbutton Pause
 		.text-center
 			p#timerstatus
+			button.btn.btn-default(data-toggle="modal" data-target="#clearClockConfirm") Reset Clock
+		// Popup to confirm clearing the clock
+		#clearClockConfirm.modal.fade(role='dialog' aria-hidden='false')
+			.modal-dialog
+				.modal-content
+					.modal-header
+						button.close(data-dismiss='modal' aria-hidden='true'): span.glyphicon.glyphicon-remove-circle
+						h4.modal-title Reset Game Clock
+					.modal-body
+						h6 WARNING
+						p This will reset the game clock. This action CANNOT be undone.
+					.modal-footer
+						button.btn.btn-success Cancel
+						button#resetclock.btn.btn-danger(data-dismiss='modal' aria-hidden='true') Reset Clock
 		script(src="socket.io/socket.io.js")
 		script(src="//code.jquery.com/jquery-1.11.0.min.js")
 		script(src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js")

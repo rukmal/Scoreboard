@@ -25,26 +25,32 @@ function Game (board_cfg, io, writeToLog) {
 			updateBoardScore();
 		});
 
-		// Socket to recieve 'pause' signal from the remote
+		// socket to recieve 'pause' signal from the remote
 		socket.on('pause time', function () {
 			pauseBoard();
 		});
 
-		// Socket to recieve 'start' signal from the remote
+		// socket to recieve 'start' signal from the remote
 		socket.on('start time', function () {
 			startBoard();
 		});
 
-		// Socket to receive updated board status to be sent to the remote
+		// socket to receive updated board status to be sent to the remote
 		socket.on('update remote status', function (status) {
 			updateTimeStatus(status);
+		});
+
+		// socket to receive signal to reset the game clock from the remote
+		socket.on('reset clock', function () {
+			writeToLog('Signal to reset game clock received and sent to board');
+			io.emit('reset clock signal', '');
 		});
 
 		/**
 		 * Function to pause timer on the board
 		 */
 		function pauseBoard () {
-			io.sockets.emit('pause board', '');
+			io.emit('pause board', '');
 			writeToLog('Board timer stopped');
 			updateTimeStatus('pause');
 		}
@@ -53,7 +59,7 @@ function Game (board_cfg, io, writeToLog) {
 		 * Function to start the timer on the board
 		 */
 		function startBoard () {
-			io.sockets.emit('start board', '');
+			io.emit('start board', '');
 			writeToLog('Board timer started');
 			updateTimeStatus('start');
 		}
@@ -65,7 +71,7 @@ function Game (board_cfg, io, writeToLog) {
 			var score = {};
 			score[team_home] = GAME.team_home;
 			score[team_away] = GAME.team_away;
-			io.sockets.emit('update scores', score);
+			io.emit('update scores', score);
 			writeToLog('New scores sent to board');
 		}
 
@@ -74,7 +80,7 @@ function Game (board_cfg, io, writeToLog) {
 		 * @param  {String} status Either 'start' or 'pause'
 		 */
 		function updateTimeStatus (status) {
-			io.sockets.emit('current time status', status);
+			io.emit('current time status', status);
 			writeToLog('Time status changed to ' + status);
 		}
 	});

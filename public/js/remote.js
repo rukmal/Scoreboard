@@ -13,6 +13,11 @@ $('#stop').click(function () {
 	socket.emit('pause time', '');
 });
 
+// Button handler to send signal to server to reset clock
+$('#resetclock').click(function () {
+	socket.emit('reset clock', '');
+});
+
 // Socket to recieve current time status from the server
 socket.on('current time status', function (status) {
 	updatePageTimeStatus(status);

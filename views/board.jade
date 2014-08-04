@@ -2,9 +2,11 @@ html
 	head
 		title Scoreboard
 		link(rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
+		link(rel="stylesheet" href="css/board.css")
 	body
 		container.text-center
-			h1#testtimer
+			h1#mainclock
+		audio#buzzer(src="sound/buzzer.mp3" preload="auto")
 		script(src="socket.io/socket.io.js")
 		script(src="//code.jquery.com/jquery-1.11.0.min.js")
 		script(src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js")

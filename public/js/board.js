@@ -13,7 +13,6 @@ var TIME_INTERVAL = 100; // ms (time refresh rate)
 var initialConfig;
 var CURRENT_TIME;
 
-
 //==================
 // Socket.io stuff
 //==================
@@ -26,7 +25,9 @@ socket.emit('type', 'board');
 // Socket to receive initial game configuration
 socket.on('initial game state', function (initialState) {
 	initialConfig = initialState;
-	CURRENT_TIME = initialConfig.current_time;
+	if (CURRENT_TIME === undefined) {
+		CURRENT_TIME = initialConfig.current_time;
+	}
 	updateClock();
 });
 
@@ -40,6 +41,13 @@ socket.on('start board', function () {
 	startClock();
 });
 
+// Socket to reset the clock
+socket.on('reset clock signal', function () {
+	CURRENT_TIME = initialConfig.half_length;
+	$('#mainclock').css('color', 'white');
+	updateClock();
+});
+
 
 //=====================
 // Timer stuff
@@ -50,16 +58,19 @@ var prevCycleTime = new Date().getTime();
 var clockInterval;
 
 function startClock () {
-	initialTime = new Date().getTime()
-	var prevCycleTime = new Date().getTime();
-	clockInterval = setInterval(function () {
-		var currentTime = new Date().getTime();
-		if (currentTime - prevCycleTime >= TIME_INTERVAL) {
-			CURRENT_TIME = CURRENT_TIME - TIME_INTERVAL;
-			updateClock();
-			prevCycleTime = currentTime;
-		}
-	}, 1);
+	if (CURRENT_TIME != 0) {
+		var prevCycleTime = new Date().getTime();
+		clockInterval = setInterval(function () {
+			var currentTime = new Date().getTime();
+			if (currentTime - prevCycleTime >= TIME_INTERVAL) {
+				CURRENT_TIME = CURRENT_TIME - TIME_INTERVAL;
+				updateClock();
+				prevCycleTime = currentTime;
+			}
+		}, 1);
+	} else {
+		socket.emit('update remote status', 'pause');
+	}
 }
 
 function stopClock () {
@@ -83,7 +94,9 @@ function updateClock () {
 	var printTime;
 	if (CURRENT_TIME === 0) {
 		stopClock();
+		document.getElementById('buzzer').play();
 		socket.emit('update remote status', 'pause');
+		$('#mainclock').css('color', 'red');
 	}
 	var formattedTime = msToTime(CURRENT_TIME);
 	if (CURRENT_TIME >= TIME_CUTOFF) {
@@ -95,5 +108,5 @@ function updateClock () {
 		ms = ms / 100;
 		printTime = formattedTime[2] + '.' + ms;
 	}
-	$('#testtimer').text(printTime);
+	$('#mainclock').text(printTime);
 }

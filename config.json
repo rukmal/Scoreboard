@@ -5,7 +5,7 @@
 	"team_away": "Legions",
 	"team_away_logo": "",
 	"password": "test",
-	"half_length": 65000,
+	"half_length": 10000,
 	"timeout_length": "",
 	"halftime_length": ""
 }

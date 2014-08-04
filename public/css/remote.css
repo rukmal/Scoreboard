@@ -8,12 +8,22 @@ html, body {
 	width: 90%;
 }
 
+#maintitle {
+	color: white;
+	font-family: 'Marvel', sans-serif;
+}
+
 #start {
 	background-color: green;
-	/*margin-left: 0.5em;*/
 }
 
 #stop {
 	background-color: red;
-	/*margin-right: 0.5em;*/
+}
+
+#timerstatus {
+	margin-top: 1em;
+	color: white;
+	font-size: 1.2em;
+	font-family: 'Hammersmith One', sans-serif;
 }
