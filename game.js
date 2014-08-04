@@ -1,6 +1,5 @@
 function Game (board_cfg, io, writeToLog) {
 	var GAME = board_cfg;
-	GAME.current_time = board_cfg.half_length;
 
 	io.on('connection', function (socket) {
 		// socket to get type of connection
@@ -10,6 +9,7 @@ function Game (board_cfg, io, writeToLog) {
 
 		// socket to send initial game state
 		socket.emit('initial game state', GAME);
+		writeToLog('Initial game configuration sent');
 
 		// socket to recieve updated time from the board
 		socket.on('update time', function (newTime) {

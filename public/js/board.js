@@ -57,6 +57,9 @@ var prevCycleTime = new Date().getTime();
 
 var clockInterval;
 
+/**
+ * Function to start the game clock
+ */
 function startClock () {
 	if (CURRENT_TIME != 0) {
 		var prevCycleTime = new Date().getTime();
@@ -73,10 +76,19 @@ function startClock () {
 	}
 }
 
+/**
+ * Function to stop the game clock
+ */
 function stopClock () {
 	clearInterval(clockInterval);
 }
 
+/**
+ * Function to get the hours, minutes, seconds and milliseconds
+ * from a time in ms originally
+ * @param  {Number} s Time in milliseconds
+ * @return {Array}    Formatted time as [h, m, s, ms]
+ */
 function msToTime(s) {
 	function addZ(n) {
 		return (n<10? '0':'') + n;
@@ -90,6 +102,9 @@ function msToTime(s) {
 	return [addZ(hrs), mins, addZ(secs), addZ(ms)];
 }
 
+/**
+ * Function to update the clock on the board
+ */
 function updateClock () {
 	var printTime;
 	if (CURRENT_TIME === 0) {

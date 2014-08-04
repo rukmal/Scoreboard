@@ -18,6 +18,11 @@ $('#resetclock').click(function () {
 	socket.emit('reset clock', '');
 });
 
+// Button handler to send signal to server to reset shot clock
+$('#shotclock').click(function () {
+	socket.emit('reset shot clock', '');
+});
+
 // Socket to recieve current time status from the server
 socket.on('current time status', function (status) {
 	updatePageTimeStatus(status);

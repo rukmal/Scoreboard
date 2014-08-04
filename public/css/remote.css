@@ -27,3 +27,7 @@ html, body {
 	font-size: 1.2em;
 	font-family: 'Hammersmith One', sans-serif;
 }
+
+#shotclock {
+	height: 5em;
+}

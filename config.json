@@ -1,5 +1,6 @@
 {
 	"_comment": "All times must be in milliseconds",
+	"tournament_logo": "http://blog.codenvy.com/wp-content/uploads/2013/10/wso2-logo.png",
 	"team_home": "CloudBots",
 	"team_home_logo": "",
 	"team_away": "Legions",
@@ -7,5 +8,6 @@
 	"password": "test",
 	"half_length": 10000,
 	"timeout_length": "",
-	"halftime_length": ""
+	"halftime_length": "",
+	"shot_clock_length": 24000
 }

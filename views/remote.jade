@@ -2,7 +2,7 @@ html
 	head
 		meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
 		link(rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
-		link(rel="stylesheet" href="http://fonts.googleapis.com/css?family=Hammersmith+One|Marvel")
+		link(rel="stylesheet" href="http://fonts.googleapis.com/css?family=Hammersmith+One|Marvel|Source+Code+Pro")
 		link(rel="stylesheet" href="css/remote.css")
 		title Scoreboard Remote
 	body
@@ -14,6 +14,10 @@ html
 				button#stop.btn.btn-lg.btn-danger.timerbutton Pause
 		.text-center
 			p#timerstatus
+		.text-center
+			button#shotclock.btn.btn-success Reset Shot Clock
+		br
+		.text-center
 			button.btn.btn-default(data-toggle="modal" data-target="#clearClockConfirm") Reset Clock
 		// Popup to confirm clearing the clock
 		#clearClockConfirm.modal.fade(role='dialog' aria-hidden='false')

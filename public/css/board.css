@@ -2,6 +2,9 @@ html, body {
 	background-color: black;
 }
 
-h1 {
+#mainclock {
+	margin-top: 0.5em;
 	color: white;
+	font-family: 'Source Code Pro', sans-serif;
+	font-size: 10em;
 }
