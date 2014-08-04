@@ -1,46 +1,67 @@
 html, body {
 	background-color: black;
+	height: 100%;
+	width: 100%;
+}
+
+@font-face {
+	font-family: 'digi';
+	src: url('/fonts/digital-7.tff');
 }
 
 #mainclock {
 	color: white;
-	font-family: 'Source Code Pro', sans-serif;
-	font-size: 10em;
+	font-family: 'digi', sans-serif;
+	font-size: 22em;
+	padding-top: 0;
+	padding-bottom: 0;
+	margin-top: -0.075em;
+	margin-bottom: 0;
+}
+
+#maintimercontainer {
+	border-left: 5px solid white;
+	border-right: 5px solid white;
+	height: 25%;
 }
 
 #tournament {
 	margin-top: 1em;
 }
 
+#bottom {
+	height: 25%;
+	border-top: 5px solid white;
+}
+
 #tournamentlogo {
-	height: 15em;
+	height: 75%;
 	margin: 0 auto;
 }
 
 #tournamenttitle {
 	font-family: 'Syncopate', sans-serif;
 	color: white;
-	border-bottom: 5px solid white;
 	padding-bottom: 1em;
 }
 
 #shotclockcontainer {
-	padding-bottom: 2.9em;
-}
-
-#maintimercontainer {
-	border-top: 5px solid white;
+	padding-top: -1.5em;
+	border-right: 10px solid white;
 }
 
 #shotclock {
 	color: white;
 	font-family: 'Syncopate';
+	margin-top: 0;
+	font-size: 2.5em;
 }
 
 #shotclocktimer {
 	color: white;
-	font-size: 5em;
-	font-family: 'Source Code Pro', sans-serif;
+	font-size: 12em;
+	font-family: 'digi', sans-serif;
+	margin-bottom: 0;
 }
 
 .score {
@@ -49,7 +70,7 @@ html, body {
 
 .scorenumber {
 	font-family: 'Exo 2', sans-serif;
-	font-size: 7em;
+	font-size: 25em;
 }
 
 #teamhome {
@@ -62,5 +83,16 @@ html, body {
 
 .teamlabel {
 	font-family: 'Syncopate', sans-serif;
-	font-size: 2.5em;
+	font-size: 6em;
+}
+
+#scores {
+	height: 50%;
+	border-bottom: 5px solid white;
+}
+
+.vertical-center {
+	margin: auto;
+	position: absolute;
+	top: 0; left: 0; bottom: 0; right: 0;
 }

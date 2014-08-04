@@ -18,10 +18,17 @@ html
 			button#shotclock.btn.btn-success.game-button Reset Shot Clock
 		br
 		.text-center
+			.col-xs-6
+				h3#teamhometitle
+			.col-xs-6
+				h3#teamawaytitle
+		br
+		.text-center
 			button#timeout.btn.btn-primary.game-button Start Timeout
 		br
 		.text-center
 			button.btn.btn-danger(data-toggle="modal" data-target="#clearClockConfirm") Reset Clock
+		br
 		// Popup to confirm clearing the clock
 		#clearClockConfirm.modal.fade(role='dialog' aria-hidden='false')
 			.modal-dialog

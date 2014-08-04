@@ -1,5 +1,7 @@
 var socket = io();
 
+var initialConfig;
+
 // Socket to emit type of connection to server
 socket.emit('type', 'remote');
 
@@ -28,13 +30,10 @@ $('#timeout').click(function () {
 	socket.emit('start timeout', '');
 });
 
-// Socket to recieve current time status from the server
-socket.on('current time status', function (status) {
-	updatePageTimeStatus(status);
-});
-
 socket.on('initial game state', function (state) {
-	updatePageTimeStatus(state.time_status);
+	initialConfig = state;
+	$('#teamhometitle').text(initialConfig.team_home);
+	$('#teamawaytitle').text(initialConfig.team_away);
 });
 
 function updatePageTimeStatus (status) {

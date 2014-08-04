@@ -7,6 +7,7 @@ var TIME_INTERVAL = 100; // ms (time refresh rate)
 var SHOT_CLOCK_TIME_CUTOFF = 5000 // ms (warning range)
 var FIRST_CONFIG = true;
 var ISTIMEOUT = false;
+var ISTIMERUNNING = false;
 
 //==================
 // Game variables
@@ -34,7 +35,6 @@ socket.on('initial game state', function (initialState) {
 	}
 	if (FIRST_CONFIG) {
 		$('#tournamentlogo').attr('src', initialConfig.tournament_logo);
-		$('#tournamenttitle').text(initialConfig.tournament_title);
 		var homehtml = '<h4 class="teamlabel">' + initialConfig.team_home + '</h4><h2 class="scorenumber" id="' + initialConfig.team_home + 'score"></h2>';
 		var awayhtml = '<h4 class="teamlabel">' + initialConfig.team_away + '</h4><h2 class="scorenumber" id="' + initialConfig.team_away + 'score"></h2>';
 		$('#teamhome').append(homehtml);
@@ -44,7 +44,7 @@ socket.on('initial game state', function (initialState) {
 		FIRST_CONFIG = false;
 	}
 	updateClock();
-	resetShotClock();
+	updateShotClock();
 });
 
 // socket to recieve pause signal from server
@@ -55,6 +55,7 @@ socket.on('pause board', function () {
 // socket to recieve start signal from server
 socket.on('start board', function () {
 	startClock();
+	stopShotClock();
 	startShotClock();
 });
 
@@ -69,7 +70,6 @@ socket.on('reset clock signal', function () {
 // socket to reset the shot clock
 socket.on('reset shot clock signal', function () {
 	resetShotClock();
-	startShotClock();
 });
 
 socket.on('start timeout signal', function () {
@@ -90,6 +90,7 @@ var clockInterval;
  */
 function startClock () {
 	if (CURRENT_TIME != 0) {
+		ISTIMERUNNING = true;
 		var prevCycleTime = new Date().getTime();
 		clockInterval = setInterval(function () {
 			var currentTime = new Date().getTime();
@@ -108,8 +109,9 @@ function startClock () {
  * Function to stop the game clock
  */
 function stopClock () {
+	ISTIMERUNNING = false;
 	clearInterval(clockInterval);
-	resetShotClock();
+	stopShotClock();
 }
 
 /**
@@ -173,6 +175,12 @@ var currentShotClock;
  * Function to start the shot clock
  */
 function startShotClock () {
+	if (ISTIMEOUT) {
+		$('#shotclock').text('Timeout');
+		ISTIMEOUT = false;
+	} else {
+		$('#shotclock').text('Shot Clock');
+	}
 	var prevShotClockCycleTime = new Date().getTime();
 	shotClock = setInterval(function () {
 		var currentShotClockTime = new Date().getTime();
@@ -188,10 +196,13 @@ function startShotClock () {
  * Function to reset the shot clock
  */
 function resetShotClock () {
-	if (ISTIMEOUT) {
-		$('#shotclock').text('Shot Clock');
-		ISTIMEOUT = false;
+	stopShotClock();
+	if (ISTIMERUNNING) {
+		startShotClock();
 	}
+}
+
+function stopShotClock () {
 	clearInterval(shotClock);
 	CURRENT_SHOT_CLOCK_TIME = initialConfig.shot_clock_length;
 	$('#shotclocktimer').css('color', 'white');
@@ -232,11 +243,9 @@ function updateShotClock () {
  * Function to start a timeout
  */
 function startTimeout () {
-	clearInterval(clockInterval);
 	ISTIMEOUT = true;
+	stopClock();
 	CURRENT_SHOT_CLOCK_TIME = initialConfig.timeout_length;
-	$('#shotclock').text('Timeout')
-	updateShotClock();
 	startShotClock();
 }
 

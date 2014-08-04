@@ -2,21 +2,20 @@ html
 	head
 		title Scoreboard
 		link(rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
-		link(rel="stylesheet" href="http://fonts.googleapis.com/css?family=Syncopate|Source+Code+Pro|Exo+2' rel='stylesheet")
+		link(rel="stylesheet" href="http://fonts.googleapis.com/css?family=Syncopate|Source+Code+Pro|Exo+2|Droid+Sans' rel='stylesheet")
 		link(rel="stylesheet" href="css/board.css")
 	body
-		.container.text-center#tournament
-			img#tournamentlogo.img.img-responsive
-			h3#tournamenttitle
-		.container
-			.scores.text-center
-				.col-md-4#teamhome.score
-				.col-md-4#shotclockcontainer
-					h2#shotclocktimer
-					h3#shotclock Shot Clock
-				.col-md-4#teamaway.score
-		#maintimercontainer.container.text-center
+		.text-center#scores
+			.col-md-6#teamhome.score
+			.col-md-6#teamaway.score
+		#maintimercontainer.text-center.container
 			h1#mainclock
+		.text-center#bottom
+			.col-md-6#shotclockcontainer
+				h2#shotclocktimer
+				h3#shotclock Shot Clock
+			.col-md-6#tournament
+				img#tournamentlogo.img.img-responsive
 		audio#buzzer(src="sound/buzzer.mp3" preload="auto")
 		script(src="socket.io/socket.io.js")
 		script(src="//code.jquery.com/jquery-1.11.0.min.js")
