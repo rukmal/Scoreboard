@@ -74,7 +74,7 @@ socket.on('reset shot clock signal', function () {
 
 
 //=====================
-// Timer stuff
+// Main Timer stuff
 //=====================
 
 var prevCycleTime = new Date().getTime();
@@ -175,6 +175,11 @@ function updateShotClock () {
 	$('#shotclocktimer').text(printShotClockTime);
 }
 
+
+//=====================
+// Shot Clock stuff
+//=====================
+
 var shotClock;
 
 var currentShotClock;
@@ -203,6 +208,7 @@ function resetShotClock () {
 	$('#shotclocktimer').css('color', 'white');
 	updateShotClock();
 }
+
 
 //=====================
 // Score stuff
