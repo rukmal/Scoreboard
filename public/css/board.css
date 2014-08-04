@@ -24,9 +24,23 @@ html, body {
 	padding-bottom: 1em;
 }
 
+#shotclockcontainer {
+	padding-bottom: 2.9em;
+}
+
+#maintimercontainer {
+	border-top: 5px solid white;
+}
+
 #shotclock {
 	color: white;
 	font-family: 'Syncopate';
+}
+
+#shotclocktimer {
+	color: white;
+	font-size: 5em;
+	font-family: 'Source Code Pro', sans-serif;
 }
 
 .score {

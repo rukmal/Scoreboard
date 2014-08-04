@@ -4,6 +4,7 @@
 
 var TIME_CUTOFF = 59999; // ms (59.99 seconds)
 var TIME_INTERVAL = 100; // ms (time refresh rate)
+var SHOT_CLOCK_TIME_CUTOFF = 5000 // ms (warning range)
 var FIRST_CONFIG = true;
 
 
@@ -13,6 +14,7 @@ var FIRST_CONFIG = true;
 
 var initialConfig;
 var CURRENT_TIME;
+var CURRENT_SHOT_CLOCK_TIME;
 
 //==================
 // Socket.io stuff
@@ -20,14 +22,15 @@ var CURRENT_TIME;
 
 var socket = io.connect();
 
-// Socket to emit type of connection to server
+// socket to emit type of connection to server
 socket.emit('type', 'board');
 
-// Socket to receive initial game configuration
+// socket to receive initial game configuration
 socket.on('initial game state', function (initialState) {
 	initialConfig = initialState;
 	if (CURRENT_TIME === undefined) {
 		CURRENT_TIME = initialConfig.half_length;
+		CURRENT_SHOT_CLOCK_TIME = initialConfig.shot_clock_length;
 	}
 	if (FIRST_CONFIG) {
 		$('#tournamentlogo').attr('src', initialConfig.tournament_logo);
@@ -38,28 +41,35 @@ socket.on('initial game state', function (initialState) {
 		$('#teamaway').append(awayhtml);
 		setScore(initialConfig.team_home, initialConfig.team_home_score);
 		setScore(initialConfig.team_away, initialConfig.team_away_score);
-		console.log(setScore);
 		FIRST_CONFIG = false;
 	}
 	updateClock();
+	resetShotClock();
 });
 
-// Socket to recieve pause signal from server
+// socket to recieve pause signal from server
 socket.on('pause board', function () {
 	stopClock();
 });
 
-// Socket to recieve start signal from server
+// socket to recieve start signal from server
 socket.on('start board', function () {
 	startClock();
+	startShotClock();
 });
 
-// Socket to reset the clock
+// socket to reset the clock
 socket.on('reset clock signal', function () {
 	stopClock();
 	CURRENT_TIME = initialConfig.half_length;
 	$('#mainclock').css('color', 'white');
 	updateClock();
+});
+
+// socket to reset the shot clock
+socket.on('reset shot clock signal', function () {
+	resetShotClock();
+	startShotClock();
 });
 
 
@@ -95,6 +105,7 @@ function startClock () {
  */
 function stopClock () {
 	clearInterval(clockInterval);
+	resetShotClock();
 }
 
 /**
@@ -103,7 +114,7 @@ function stopClock () {
  * @param  {Number} s Time in milliseconds
  * @return {Array}    Formatted time as [h, m, s, ms]
  */
-function msToTime(s) {
+function msToTime (s) {
 	/**
 	 * Internal function to append 0's to
 	 * numbers < 10 to make them look pretty
@@ -145,6 +156,53 @@ function updateClock () {
 	$('#mainclock').text(printTime);
 }
 
+/**
+ * Function to update the shot clock on the board
+ */
+function updateShotClock () {
+	var printShotClockTime = '';
+	if (CURRENT_SHOT_CLOCK_TIME === 0) {
+		// document.getElementById('shotclockbuzzer').play();
+		stopClock();
+	}
+	if (CURRENT_SHOT_CLOCK_TIME < SHOT_CLOCK_TIME_CUTOFF) {
+		$('#shotclocktimer').css('color', 'red');
+	}
+	formattedShotClockTime = msToTime(CURRENT_SHOT_CLOCK_TIME);
+	var ms = formattedShotClockTime[3];
+	ms = ms / 100;
+	printShotClockTime = parseInt(formattedShotClockTime[2]) + '.' + ms;
+	$('#shotclocktimer').text(printShotClockTime);
+}
+
+var shotClock;
+
+var currentShotClock;
+
+/**
+ * Function to start the shot clock
+ */
+function startShotClock () {
+	var prevShotClockCycleTime = new Date().getTime();
+	shotClock = setInterval(function () {
+		var currentShotClockTime = new Date().getTime();
+		if (currentShotClockTime - prevShotClockCycleTime >= TIME_INTERVAL) {
+			CURRENT_SHOT_CLOCK_TIME = CURRENT_SHOT_CLOCK_TIME - TIME_INTERVAL;
+			updateShotClock();
+			prevShotClockCycleTime = currentShotClockTime;
+		}
+	}, 1);
+}
+
+/**
+ * Function to reset the shot clock
+ */
+function resetShotClock () {
+	clearInterval(shotClock);
+	CURRENT_SHOT_CLOCK_TIME = initialConfig.shot_clock_length;
+	$('#shotclocktimer').css('color', 'white');
+	updateShotClock();
+}
 
 //=====================
 // Score stuff

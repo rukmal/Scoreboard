@@ -11,10 +11,11 @@ html
 		.container
 			.scores.text-center
 				.col-md-4#teamhome.score
-				.col-md-4
+				.col-md-4#shotclockcontainer
+					h2#shotclocktimer
 					h3#shotclock Shot Clock
 				.col-md-4#teamaway.score
-		.container.text-center
+		#maintimercontainer.container.text-center
 			h1#mainclock
 		audio#buzzer(src="sound/buzzer.mp3" preload="auto")
 		script(src="socket.io/socket.io.js")

@@ -46,6 +46,12 @@ function Game (board_cfg, io, writeToLog) {
 		socket.on('reset clock', function () {
 			writeToLog('Signal to reset game clock received and sent to board');
 			io.emit('reset clock signal', '');
+		})
+
+		// socket to receive signal to reset shot clock from the remote
+		socket.on('reset shot clock', function () {
+			writeToLog('Signal to reset shot clock received and sent to board');
+			io.emit('reset shot clock signal', '');
 		});
 
 		/**
