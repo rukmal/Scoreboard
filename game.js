@@ -79,6 +79,15 @@ function Game (board_cfg, io, writeToLog) {
 			writeToLog('Board timer started');
 			updateTimeStatus('start');
 		}
+
+		/**
+		 * Function to update the time status of the clock
+		 * @param  {String} status Either 'start' or 'pause'
+		 */
+		function updateTimeStatus (status) {
+			io.emit('current time status', status);
+			writeToLog('Time status changed to ' + status);
+		}
 	});
 }
 
