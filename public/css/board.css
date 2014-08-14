@@ -1,5 +1,5 @@
 html, body {
-	background-color: black;
+	background-color: white;
 	height: 100%;
 	width: 100%;
 }
@@ -10,18 +10,16 @@ html, body {
 }
 
 #mainclock {
-	color: white;
+	color: black;
 	font-family: 'digi', sans-serif;
-	font-size: 22em;
-	padding-top: 0;
-	padding-bottom: 0;
+	font-size: 18em;
 	margin-top: -0.075em;
 	margin-bottom: 0;
 }
 
 #maintimercontainer {
-	border-left: 5px solid white;
-	border-right: 5px solid white;
+	border-left: 5px solid black;
+	border-right: 5px solid black;
 	height: 25%;
 }
 
@@ -31,7 +29,7 @@ html, body {
 
 #bottom {
 	height: 25%;
-	border-top: 5px solid white;
+	border-top: 5px solid black;
 }
 
 #tournamentlogo {
@@ -41,31 +39,31 @@ html, body {
 
 #tournamenttitle {
 	font-family: 'Syncopate', sans-serif;
-	color: white;
+	color: black;
 	padding-bottom: 1em;
 }
 
 #shotclockcontainer {
 	padding-top: -1.5em;
-	border-right: 10px solid white;
+	border-right: 10px solid black;
 }
 
 #shotclock {
-	color: white;
+	color: black;
 	font-family: 'Syncopate';
 	margin-top: 0;
 	font-size: 2.5em;
 }
 
 #shotclocktimer {
-	color: white;
+	color: black;
 	font-size: 12em;
 	font-family: 'digi', sans-serif;
 	margin-bottom: 0;
 }
 
 .score {
-	color: white;
+	color: black;
 }
 
 .scorenumber {
@@ -74,11 +72,11 @@ html, body {
 }
 
 #teamhome {
-	border-right: 5px solid white;
+	border-right: 5px solid black;
 }
 
 #teamaway {
-	border-left: 5px solid white;
+	border-left: 5px solid black;
 }
 
 .teamlabel {
@@ -88,7 +86,7 @@ html, body {
 
 #scores {
 	height: 50%;
-	border-bottom: 5px solid white;
+	border-bottom: 5px solid black;
 }
 
 .vertical-center {
