@@ -55,15 +55,15 @@ socket.on('pause board', function () {
 // socket to recieve start signal from server
 socket.on('start board', function () {
 	startClock();
-	stopShotClock();
-	startShotClock();
+	// stopShotClock();
+	// startShotClock();
 });
 
 // socket to reset the clock
 socket.on('reset clock signal', function () {
 	stopClock();
 	CURRENT_TIME = initialConfig.half_length;
-	$('#mainclock').css('color', 'white');
+	$('#mainclock').css('color', 'black');
 	updateClock();
 });
 
@@ -150,6 +150,7 @@ function msToTime (s) {
 function updateClock () {
 	var printTime;
 	if (CURRENT_TIME === 0) {
+		clearInterval(clockInterval);
 		stopClock();
 		document.getElementById('buzzer').play();
 		socket.emit('update remote status', 'pause');
@@ -214,7 +215,7 @@ function resetShotClock () {
 function stopShotClock () {
 	clearInterval(shotClock);
 	CURRENT_SHOT_CLOCK_TIME = initialConfig.shot_clock_length;
-	$('#shotclocktimer').css('color', 'white');
+	$('#shotclocktimer').css('color', 'black');
 	updateShotClock();
 }
 
